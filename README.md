@@ -5,8 +5,5 @@ An open-sourced program to read vCan data.
 ** Written/Sourced by Nickolaas Bender
 
 
-## LETS GET THIS PARTY ON DA ROAD ##
-
-
 Notes here, Build instructions
 
