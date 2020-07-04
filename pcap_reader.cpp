@@ -1,7 +1,9 @@
-#include "pcap_reader.hpp"
+#include "pcap_reader.h"
 
 //LOGIC FOR PCAP_READER
 //WRITTEN BY NIK BENDER
+
+#include "ros/ros.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,8 +19,12 @@
 #include <linux/can/raw.h>
 #include <linux/can/error.h>
 
+#include <socketcan_interface/asio_base.h>
 #include <boost/bind.hpp>
 #include <boost/asio.hpp>
+#include <socketcan_interface/dispatcher.h>
+#include <socketcan_interface/string.h>
+
 
 using namespace boost::filesystem;
 using namespace std;

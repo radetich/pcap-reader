@@ -1,0 +1,2 @@
+#define pcap_reader_VERSION_MAJOR @pcap_reader_VERSION_MAJOR@
+#define pcap_reader_VERSION_MINOR @pcap_reader_VERSION_MINOR@
