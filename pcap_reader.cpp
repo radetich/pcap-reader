@@ -13,6 +13,8 @@
 #include <sys/socket.h>
 #include <sys/ioctl.h>
 
+
+//UPDATE THE FOLLOWING FIVE INCLUDES FOR YOUR OPERATING SYSTEM (Currently configured for: Ubuntu 18.04)
 #include <linux/can.h>
 #include <linux/can/raw.h>
 #include <linux/can/error.h>
@@ -24,6 +26,8 @@
 using namespace boost::filesystem;
 using namespace std;
 
+
+//MEMORY STRUCT FOR HOLDING PACKET VALUES
 typedef struct __attribute__((packed))
 {
     uint16_t length;
@@ -40,25 +44,40 @@ typedef struct __attribute__((packed))
 
 peakpacket_t;
 
+
+//SIMPLE PRINT FUNCTION FOR FILE NAME
 void print(std::vector<string> &input)
 {
-	for (int i = 0; i < input.size(); i++) {
+	for (int i = 0; i < input.size(); i++)
+    {
 		std::cout << input.at(i) << endl;
 	}
 }
 
 
+//STRUCT TO HOLD EACH FRAME OF MEMORY DATA
 struct raw_frame {
     __u8    data[16] __attribute__((aligned(16)));
 };
 
-// get the pcap files in a directory, retun them in a vector
-vector <string> get_pcaps(string folder_path){
+
+/*
+    FUNCTION TO IMPORT PCAP FILES
+
+    @param FILEPATH OF .PCAP CONTAINING FOLDER, SET TO resources/radar
+
+    RETURNS VECTOR OF .PCAP FILES
+*/
+vector <string> get_pcaps(string folder_path)
+{
     path p{folder_path};
     vector <string> files;
-    if(is_directory(p)) {
-        for(auto& entry : boost::make_iterator_range(directory_iterator(p), {})){
-            if(entry.path().extension().string() == ".pcap"){
+    if(is_directory(p)) 
+    {
+        for(auto& entry : boost::make_iterator_range(directory_iterator(p), {}))
+        {
+            if(entry.path().extension().string() == ".pcap")
+            {
                 files.push_back(entry.path().string());
             }
         }
@@ -67,8 +86,10 @@ vector <string> get_pcaps(string folder_path){
     return files;
 }
 
-
-//MAIN FUNCTION! CALLED IN DRIVER.CPP
+/*
+    FUNCTION TO PROCESS PCAP FILES
+        *see code for more in-depth breakdown
+*/
 int process(){
 
     int s;
@@ -85,12 +106,14 @@ int process(){
 
     bind(s, (struct sockaddr *)&addr, sizeof(addr));
 
+    //importing file
     vector <string> file_names = get_pcaps("../resources/radar/");
 
     print(file_names);
 
-    for(auto file_path : file_names){ 
-        
+    //for loop runs until files are fully searched through
+    for(auto file_path : file_names)
+    {
         int nbytes;
         struct can_frame frame;
         char errbuff[PCAP_ERRBUF_SIZE];
@@ -98,9 +121,11 @@ int process(){
         u_int packetCount = 0;
         struct pcap_pkthdr *header;
         peakpacket_t *data;
+        //prints size of packet... useful for debugging (make sure these numbers are consistant with what you're processing)
         printf("Sizeof peakpackt: %d \n", sizeof(peakpacket_t));
-        while (int returnValue = pcap_next_ex(pcap, &header, (const uint8_t**)&data) >= 0){
-            // Show a warning if the length captured is different
+        while (int returnValue = pcap_next_ex(pcap, &header, (const uint8_t**)&data) >= 0)
+        {
+            //display warning if the length captured is different
             if (header->len != header->caplen)
                 printf("Warning! Capture size different than packet size: %ld bytes\n", header->len);
 
@@ -109,12 +134,14 @@ int process(){
             memcpy(frame.data, data->data, data->dlc);
             
 
-            // write struct to socket
+            //takes dummy can struct and writes to socket (this is what you'll be capturing)
             nbytes = write(s, &frame, sizeof(struct can_frame));
         }
 
         
     }
+
+    //print to confirm program finished
     printf("done\n");
     return 0;
     
@@ -123,11 +150,11 @@ int process(){
 
 int main() 
 {
-    cout << "#####################" << endl;
+    cout << "############################################" << endl;
     cout << "PCAP_READER BY NIK BENDER AND COLE RADETICH" << endl;
     cout << "FOR READING RAW PCAP PACKET DATA FROM RADAR" << endl;
-    cout << "#####################" << endl;
+    cout << "############################################" << endl;
 
-    //call function from PCAP_READER.CPP to handle real work
+    //PCAP PROCESSING FUNCTION
     process();
 }

@@ -5,6 +5,8 @@
 #include <string>
 #include <iostream>
 #include <pcap.h>
+
+//UPDATE THE FOLLOWING TWO INCLUDES FOR YOUR OPERATING SYSTEM (Currently configured for: Ubuntu 18.04)
 #include <boost/filesystem.hpp>
 #include <boost/range/iterator_range.hpp>
 
