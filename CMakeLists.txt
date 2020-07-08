@@ -1,3 +1,6 @@
+##YOU MAY NEED TO EDIT THIS FILE SLIGHTLY FOR YOUR OPERATING SYSTEM!
+
+
 cmake_minimum_required(VERSION 2.8.3)
 
 project(pcap_reader)

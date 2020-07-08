@@ -63,7 +63,7 @@ vector <string> get_pcaps(string folder_path)
     FUNCTION TO PROCESS PCAP FILES
         *see code for more in-depth breakdown
 */
-int process()
+void process()
 {
 
     int s;
@@ -72,7 +72,7 @@ int process()
 
     s = socket(PF_CAN, SOCK_RAW, CAN_RAW);
 
-    strcpy(ifr.ifr_name, "vcan0" );
+    strcpy(ifr.ifr_name, "vcan0");
     ioctl(s, SIOCGIFINDEX, &ifr);
 
     addr.can_family = AF_CAN;
@@ -84,8 +84,8 @@ int process()
     vector <string> file_names = get_pcaps("../resources/radar/");
 
 
-    //add # here?
-    cout << endl << endl << "IMPORTED FILES SUCESSFULLY" << endl;
+    //prints number of packet files loaded sucessfully (check this with your actual number of .pcap files)
+    printf("Number of files loaded sucessfully: %d \n \n \n", file_names.size());
 
     //for loop runs until files are fully searched through
     for(auto file_path : file_names)
@@ -118,8 +118,7 @@ int process()
     }
 
     //print to confirm program finished
-    printf("done\n");
-    return 0;
+    printf("FINISHED PROCESSING \n \n");
     
 }
 

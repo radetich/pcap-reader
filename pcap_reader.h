@@ -1,7 +1,6 @@
 #ifndef PCAP_READER_H
 #define PCAP_READER_H
 
-
 #include <string>
 #include <iostream>
 #include <pcap.h>
