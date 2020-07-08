@@ -1,8 +1,8 @@
 # pcap_reader
 ## An open-sourced C++ program to read .pcap raw data.
 
-####*Written/Sourced by Nickolaas Bender*
-####*Documented and Formatted by Cole Radetich*
+###### *Written/Sourced by Nickolaas Bender*
+###### *Documented and Formatted by Cole Radetich*
 
 
 Use CMAKE to build, check CMakeLists.txt if errors are found.
