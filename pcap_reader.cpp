@@ -3,17 +3,6 @@
 //LOGIC FOR PCAP_READER
 //WRITTEN BY NIK BENDER
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-
-#include <net/if.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/ioctl.h>
-
-
 //UPDATE THE FOLLOWING FIVE INCLUDES FOR YOUR OPERATING SYSTEM (Currently configured for: Ubuntu 18.04)
 #include <linux/can.h>
 #include <linux/can/raw.h>
@@ -45,22 +34,6 @@ typedef struct __attribute__((packed))
 peakpacket_t;
 
 
-//SIMPLE PRINT FUNCTION FOR FILE NAME
-void print(std::vector<string> &input)
-{
-	for (int i = 0; i < input.size(); i++)
-    {
-		std::cout << input.at(i) << endl;
-	}
-}
-
-
-//STRUCT TO HOLD EACH FRAME OF MEMORY DATA
-struct raw_frame {
-    __u8    data[16] __attribute__((aligned(16)));
-};
-
-
 /*
     FUNCTION TO IMPORT PCAP FILES
 
@@ -90,7 +63,8 @@ vector <string> get_pcaps(string folder_path)
     FUNCTION TO PROCESS PCAP FILES
         *see code for more in-depth breakdown
 */
-int process(){
+int process()
+{
 
     int s;
     struct sockaddr_can addr;
@@ -106,10 +80,12 @@ int process(){
 
     bind(s, (struct sockaddr *)&addr, sizeof(addr));
 
-    //importing file
+    //importing files
     vector <string> file_names = get_pcaps("../resources/radar/");
 
-    print(file_names);
+
+    //add # here?
+    cout << endl << endl << "IMPORTED FILES SUCESSFULLY" << endl;
 
     //for loop runs until files are fully searched through
     for(auto file_path : file_names)
@@ -150,10 +126,10 @@ int process(){
 
 int main() 
 {
-    cout << "############################################" << endl;
+    cout  << endl << endl << "############################################" << endl;
     cout << "PCAP_READER BY NIK BENDER AND COLE RADETICH" << endl;
     cout << "FOR READING RAW PCAP PACKET DATA FROM RADAR" << endl;
-    cout << "############################################" << endl;
+    cout << "############################################" << endl << endl;
 
     //PCAP PROCESSING FUNCTION
     process();
