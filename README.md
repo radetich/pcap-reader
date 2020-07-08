@@ -1,4 +1,4 @@
-# pcap_reader
+# pcap-reader
 ## An open-sourced C++ program to read .pcap raw data.
 
 ###### *Written/Sourced by Nickolaas Bender*
