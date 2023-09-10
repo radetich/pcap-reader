@@ -11,5 +11,3 @@ BUILD AND TESTED WORKING ON UBUNTU 18.04--PLEASE UPDATE CMAKELISTS.TXT FOR BOOST
 
 **Raw code for reading available in pcap_reader.cpp, see this file if you're simply looking for the functions.**
 
-
-KEYWORDS: packet capture, pcap, replay, c++, cmake, open source, pcap data, CU BOULDER, test.pcap, radar, radar reader, radar .pcan reader
